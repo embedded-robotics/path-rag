@@ -16,7 +16,7 @@ pip install -r requirements.txt
 
 [text](https://github.com/UCSD-AI4H/PathVQA/blob/master/data/README.md)
 
-5. Clone the HistoCartography tool
+5. Clone the HistoCartography tool and setup the model checkpoints in `histocartography/checkpoints`
 
 git clone https://github.com/BiomedSciAI/histocartography
 
@@ -55,4 +55,5 @@ cd ..
 
 10. Generate the top patches for open-ended PathVQA images using HistoCartography
 
-python histocartography_patches.py
+python generate_histo_patches.py
+
