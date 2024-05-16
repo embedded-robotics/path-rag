@@ -1,6 +1,58 @@
 # Path-RAG: Knowledge-Guided Key Region Retrieval for Open-ended Pathology Visual Question Answering
 
+1. Clone this repository and navigate to path-rag folder
+git clone https://github.com/embedded-robotics/path-rag.git
+cd path-rag
 
-1. Download the PathVQA dataset from the following link
+2. Install Package: Create conda environment
+conda create -n path-rag python=3.10 -y
+conda activate path-rag
+pip install --upgrade pip # enable PEP 660 support for LLaVA-Med
+
+3. Install the dependent packages for LLaVA-Med and HistoCartography (compatible with both LLaVA-Med and HistoCartography)
+pip install -r requirements.txt
+
+4. Download the PathVQA dataset from the following link
 
 [text](https://github.com/UCSD-AI4H/PathVQA/blob/master/data/README.md)
+
+5. Clone the HistoCartography tool
+
+git clone https://github.com/BiomedSciAI/histocartography
+
+6. Clone the LLaVA-Med repository
+
+git clone https://github.com/microsoft/LLaVA-Med
+
+7. Download the LLaMA-7B model and weights from HuggingFace
+
+python llama_7B_model_weights.py # LLaMA-7B weights/model stored into $HF_HOME (By Default $HF_HOME = ~/.cache/huggingface)
+
+8. Download LLaVA-Med delta weights `llava_med_in_text_60k_ckpt2_delta` and `pvqa-9epoch_delta` from `https://github.com/microsoft/LLaVA-Med#model-download`. Put them inside a folder named `model_delta_weights` inside LLaVA-Med directory
+
+cd LLaVA-Med/
+mkdir model_delta_weights 
+# Download the delta weights and put that into `model_delta_weights`
+
+9. Apply the LLaVA-Med delta weights to base LLaMA-7B to come up with the final weights for LLaVA-Med
+
+mkdir final_models/
+
+# LLaVA-Med pre-trained on general biomedicine data
+!python3 -m llava.model.apply_delta \
+    --base ~/.cache/huggingface/hub/models--huggyllama--llama-7b/snapshots/8416d3fefb0cb3ff5775a7b13c1692d10ff1aa16 \
+    --target ./final_models/llava_med \
+    --delta ./model_delta_weights/llava_med_in_text_60k_ckpt2_delta
+
+# LLaVA-Med fine-tuned on PathVQA
+!python -m llava.model.apply_delta \
+    --base ~/.cache/huggingface/hub/models--huggyllama--llama-7b/snapshots/8416d3fefb0cb3ff5775a7b13c1692d10ff1aa16 \
+    --target ./final_models/llava_med_pvqa \
+    --delta ./model_delta_weights/pvqa-9epoch_delta
+
+# Go back to path-rag directory
+cd ..
+
+10. Generate the top patches for open-ended PathVQA images using HistoCartography
+
+python histocartography_patches.py
