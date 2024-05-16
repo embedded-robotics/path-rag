@@ -90,24 +90,31 @@ python llava/eval/model_vqa.py --model-name ../final_models/llava_med \
     --answers-file ../files/answer/raw/answer_patch_description.jsonl
 
 # Fine-Tuned Model
-python llava/eval/model_vqa.py --model-name ../final_models/llava_med \
+python llava/eval/model_vqa.py --model-name ../final_models/llava_med_pvqa \
     --question-file ../files/query/image_direct.jsonl \
     --image-folder ../pvqa/images/test \
     --answers-file ../files/answer/fine-tuned/answer_image_direct.jsonl
 
-python llava/eval/model_vqa.py --model-name ../final_models/llava_med \
+python llava/eval/model_vqa.py --model-name ../final_models/llava_med_pvqa \
     --question-file ../files/query/patch_direct.jsonl \
     --image-folder ../pvqa/images/test \
     --answers-file ../files/answer/fine-tuned/answer_patch_direct.jsonl
 
-python llava/eval/model_vqa.py --model-name ../final_models/llava_med \
+python llava/eval/model_vqa.py --model-name ../final_models/llava_med_pvqa \
     --question-file ../files/query/image_description.jsonl \
     --image-folder ../pvqa/images/test \
     --answers-file ../files/answer/fine-tuned/answer_image_description.jsonl
 
-python llava/eval/model_vqa.py --model-name ../final_models/llava_med \
+python llava/eval/model_vqa.py --model-name ../final_models/llava_med_pvqa \
     --question-file ../files/query/patch_description.jsonl \
     --image-folder ../pvqa/images/test \
     --answers-file ../files/answer/fine-tuned/answer_patch_description.jsonl
 
+# Go to original directory
+cd ..
 
+13. Evaluate the results for different use-cases using `recall_calculation.py`
+
+(i) Path-RAG w/o GPT: Combine the answer of image + all patches to be the final predicted answer
+(ii) Path-RAG (description): Combine the description of image + all patches. Then involve GPT-4 for reasoning to ge the final predicted answer (See Supplementary Section for Prompts)
+(iii) Path-RAG (answer): Combine the answer of image + all patches. Then involve GPT-4 for reasoning to ge the final predicted answer (See Supplementary Section for Prompts)
