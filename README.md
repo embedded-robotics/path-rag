@@ -50,11 +50,8 @@ mkdir final_models/
     --target ./final_models/llava_med_pvqa \
     --delta ./model_delta_weights/pvqa-9epoch_delta
 
-# Go back to path-rag directory
-cd ..
-
 10. Generate the top patches for open-ended PathVQA images using HistoCartography
-
+cd ..
 python generate_histo_patches.py
 
 11. Generate the files for query to be asked for LLaVA-Med for both the images and patches
@@ -109,9 +106,6 @@ python llava/eval/model_vqa.py --model-name ../final_models/llava_med_pvqa \
     --question-file ../files/query/patch_description.jsonl \
     --image-folder ../pvqa/images/test \
     --answers-file ../files/answer/fine-tuned/answer_patch_description.jsonl
-
-# Go to original directory
-cd ..
 
 13. Evaluate the results for different use-cases using `recall_calculation.py`
 
