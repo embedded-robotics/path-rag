@@ -28,30 +28,28 @@ git clone https://github.com/microsoft/LLaVA-Med
 
 python llama_7B_model_weights.py # LLaMA-7B weights/model stored into $HF_HOME (By Default $HF_HOME = ~/.cache/huggingface)
 
-8. Download LLaVA-Med delta weights `llava_med_in_text_60k_ckpt2_delta` and `pvqa-9epoch_delta` from `https://github.com/microsoft/LLaVA-Med#model-download`. Put them inside a folder named `model_delta_weights` inside LLaVA-Med directory
-
-cd LLaVA-Med/
-mkdir model_delta_weights 
-# Download the delta weights and put that into `model_delta_weights`
+8. Download LLaVA-Med delta weights `llava_med_in_text_60k_ckpt2_delta` and `pvqa-9epoch_delta` from `https://github.com/microsoft/LLaVA-Med#model-download`. Put them inside a folder named `model_delta_weights`
 
 9. Apply the LLaVA-Med delta weights to base LLaMA-7B to come up with the final weights for LLaVA-Med
 
-mkdir final_models/
+cd LLaVA-Med
 
-# LLaVA-Med pre-trained on general biomedicine data
+#### LLaVA-Med pre-trained on general biomedicine data
 !python3 -m llava.model.apply_delta \
     --base ~/.cache/huggingface/hub/models--huggyllama--llama-7b/snapshots/8416d3fefb0cb3ff5775a7b13c1692d10ff1aa16 \
-    --target ./final_models/llava_med \
-    --delta ./model_delta_weights/llava_med_in_text_60k_ckpt2_delta
+    --target ../final_models/llava_med \
+    --delta ../model_delta_weights/llava_med_in_text_60k_ckpt2_delta
 
-# LLaVA-Med fine-tuned on PathVQA
+#### LLaVA-Med fine-tuned on PathVQA
 !python -m llava.model.apply_delta \
     --base ~/.cache/huggingface/hub/models--huggyllama--llama-7b/snapshots/8416d3fefb0cb3ff5775a7b13c1692d10ff1aa16 \
-    --target ./final_models/llava_med_pvqa \
-    --delta ./model_delta_weights/pvqa-9epoch_delta
+    --target ../final_models/llava_med_pvqa \
+    --delta ../model_delta_weights/pvqa-9epoch_delta
+
+cd ..
 
 10. Generate the top patches for open-ended PathVQA images using HistoCartography
-cd ..
+
 python generate_histo_patches.py
 
 11. Generate the files for query to be asked for LLaVA-Med for both the images and patches
@@ -65,7 +63,7 @@ mkdir -p files/answer/raw
 mkdir -p files/answer/fine-tuned
 cd LLaVA-Med
 
-# Raw Model
+#### Raw Model
 python llava/eval/model_vqa.py --model-name ../final_models/llava_med \
     --question-file ../files/query/image_direct.jsonl \
     --image-folder ../pvqa/images/test \
@@ -86,7 +84,7 @@ python llava/eval/model_vqa.py --model-name ../final_models/llava_med \
     --image-folder ../pvqa/images/test \
     --answers-file ../files/answer/raw/answer_patch_description.jsonl
 
-# Fine-Tuned Model
+#### Fine-Tuned Model
 python llava/eval/model_vqa.py --model-name ../final_models/llava_med_pvqa \
     --question-file ../files/query/image_direct.jsonl \
     --image-folder ../pvqa/images/test \
