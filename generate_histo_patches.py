@@ -17,8 +17,8 @@ knn_graph_builder = KNNGraphBuilder(k=5, thresh=50, add_loc_feats=True)
 def get_path_vqa_open_images(data_path : str = "pvqa"):
     
     # Reading the PathVQA dataset
-    img_train_path = os.path.join("images", "test")
-    qas_train_path = os.path.join("qas", "test", "test_qa.pkl")
+    img_train_path = os.path.join(data_path, "images", "test")
+    qas_train_path = os.path.join(data_path, "qas", "test", "test_qa.pkl")
     with open(qas_train_path, 'rb') as file:
         pvqa_qas = pickle.load(file)
     

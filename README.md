@@ -57,3 +57,57 @@ cd ..
 
 python generate_histo_patches.py
 
+11. Generate the files for query to be asked for LLaVA-Med for both the images and patches
+
+mkdir -p files/query
+python generate_llava_med_query.py
+
+12. Now we need to generate the answer for all the query files using raw model (`./final_models/llava_med`) and fine-tuned model (`./final_models/llava_med_pvqa`)
+
+mkdir -p files/answer/raw
+mkdir -p files/answer/fine-tuned
+cd LLaVA-Med
+
+# Raw Model
+python llava/eval/model_vqa.py --model-name ../final_models/llava_med \
+    --question-file ../files/query/image_direct.jsonl \
+    --image-folder ../pvqa/images/test \
+    --answers-file ../files/answer/raw/answer_image_direct.jsonl
+
+python llava/eval/model_vqa.py --model-name ../final_models/llava_med \
+    --question-file ../files/query/patch_direct.jsonl \
+    --image-folder ../pvqa/images/test \
+    --answers-file ../files/answer/raw/answer_patch_direct.jsonl
+
+python llava/eval/model_vqa.py --model-name ../final_models/llava_med \
+    --question-file ../files/query/image_description.jsonl \
+    --image-folder ../pvqa/images/test \
+    --answers-file ../files/answer/raw/answer_image_description.jsonl
+
+python llava/eval/model_vqa.py --model-name ../final_models/llava_med \
+    --question-file ../files/query/patch_description.jsonl \
+    --image-folder ../pvqa/images/test \
+    --answers-file ../files/answer/raw/answer_patch_description.jsonl
+
+# Fine-Tuned Model
+python llava/eval/model_vqa.py --model-name ../final_models/llava_med \
+    --question-file ../files/query/image_direct.jsonl \
+    --image-folder ../pvqa/images/test \
+    --answers-file ../files/answer/fine-tuned/answer_image_direct.jsonl
+
+python llava/eval/model_vqa.py --model-name ../final_models/llava_med \
+    --question-file ../files/query/patch_direct.jsonl \
+    --image-folder ../pvqa/images/test \
+    --answers-file ../files/answer/fine-tuned/answer_patch_direct.jsonl
+
+python llava/eval/model_vqa.py --model-name ../final_models/llava_med \
+    --question-file ../files/query/image_description.jsonl \
+    --image-folder ../pvqa/images/test \
+    --answers-file ../files/answer/fine-tuned/answer_image_description.jsonl
+
+python llava/eval/model_vqa.py --model-name ../final_models/llava_med \
+    --question-file ../files/query/patch_description.jsonl \
+    --image-folder ../pvqa/images/test \
+    --answers-file ../files/answer/fine-tuned/answer_patch_description.jsonl
+
+
