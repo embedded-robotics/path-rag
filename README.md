@@ -97,17 +97,23 @@ python llava/eval/model_vqa.py --model-name ../final_models/llava_med \
     --question-file ../files/query/image_direct.jsonl \
     --image-folder ../pvqa/images/test \
     --answers-file ../files/answer/raw/answer_image_direct.jsonl
+```
 
+```Shell
 python llava/eval/model_vqa.py --model-name ../final_models/llava_med \
     --question-file ../files/query/patch_direct.jsonl \
     --image-folder ../pvqa/images/test \
     --answers-file ../files/answer/raw/answer_patch_direct.jsonl
+```
 
+```Shell
 python llava/eval/model_vqa.py --model-name ../final_models/llava_med \
     --question-file ../files/query/image_description.jsonl \
     --image-folder ../pvqa/images/test \
     --answers-file ../files/answer/raw/answer_image_description.jsonl
+```
 
+```Shell
 python llava/eval/model_vqa.py --model-name ../final_models/llava_med \
     --question-file ../files/query/patch_description.jsonl \
     --image-folder ../pvqa/images/test \
@@ -120,17 +126,23 @@ python llava/eval/model_vqa.py --model-name ../final_models/llava_med_pvqa \
     --question-file ../files/query/image_direct.jsonl \
     --image-folder ../pvqa/images/test \
     --answers-file ../files/answer/fine-tuned/answer_image_direct.jsonl
+```
 
+```Shell
 python llava/eval/model_vqa.py --model-name ../final_models/llava_med_pvqa \
     --question-file ../files/query/patch_direct.jsonl \
     --image-folder ../pvqa/images/test \
     --answers-file ../files/answer/fine-tuned/answer_patch_direct.jsonl
+```
 
+```Shell
 python llava/eval/model_vqa.py --model-name ../final_models/llava_med_pvqa \
     --question-file ../files/query/image_description.jsonl \
     --image-folder ../pvqa/images/test \
     --answers-file ../files/answer/fine-tuned/answer_image_description.jsonl
+```
 
+```Shell
 python llava/eval/model_vqa.py --model-name ../final_models/llava_med_pvqa \
     --question-file ../files/query/patch_description.jsonl \
     --image-folder ../pvqa/images/test \
