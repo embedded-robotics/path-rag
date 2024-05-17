@@ -106,7 +106,7 @@ python generate_histo_patches.py
 python generate_llava_med_query.py
 ```
 
-### 12. Now we need to generate the answer for all the query files using raw model (`./final_models/llava_med`) and fine-tuned model (`./final_models/llava_med_pvqa`)
+### 12. Now we need to generate the answer for all the query files using raw model (`final_models/llava_med`) and fine-tuned model (`final_models/llava_med_pvqa`)
 
 ```Shell
 cd LLaVA-Med
@@ -172,6 +172,6 @@ python llava/eval/model_vqa.py --model-name ../final_models/llava_med_pvqa \
 
 ### 13. Evaluate the results for different use-cases using `recall_calculation.py`
 
-(i) Path-RAG w/o GPT: Combine the answer of image + all patches to be the final predicted answer
-(ii) Path-RAG (description): Combine the description of image + all patches. Then involve GPT-4 for reasoning to ge the final predicted answer (See Supplementary Section for Prompts)
+(i) Path-RAG w/o GPT: Combine the answer of image + all patches to be the final predicted answer\
+(ii) Path-RAG (description): Combine the description of image + all patches. Then involve GPT-4 for reasoning to ge the final predicted answer (See Supplementary Section for Prompts)\
 (iii) Path-RAG (answer): Combine the answer of image + all patches. Then involve GPT-4 for reasoning to ge the final predicted answer (See Supplementary Section for Prompts)
