@@ -1,5 +1,26 @@
 # Path-RAG: Knowledge-Guided Key Region Retrieval for Open-ended Pathology Visual Question Answering
 
+<p align="center">
+    <img src="images/path-rag.png" width="90%"> <br>
+ 
+  *Accurate diagnosis and prognosis assisted by pathology im-
+ages are essential for cancer treatment selection and planning. Despite
+the recent trend of adopting deep-learning approaches for analyzing com-
+plex pathology images, they fall short as they often overlook the domain-
+expert understanding of tissue structure and cell composition. In this
+work, we focus on a challenging Open-ended Pathology VQA (PathVQA-
+Open) task and propose a novel framework named Path-RAG, which
+leverages HistoCartography to retrieve relevant domain knowledge from
+pathology images and significantly improves performance on PathVQA-
+Open. Admitting the complexity of pathology image analysis, Path-RAG
+adopts a human-centered AI approach by retrieving domain knowledge
+using HistoCartography to select the relevant patches from pathology
+images. Our experiments suggest that domain-guidance can significantly
+boost the accuracy of LLaVa-Med from 38% to 47%, especially with a
+surprising gain of 28% for H&E-stained pathology images. All our rele-
+vant codes will be open-sourced.*
+</p>
+
 ### 1. Clone this repository and navigate to path-rag folder
 
 ```Shell
