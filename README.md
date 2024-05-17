@@ -23,7 +23,7 @@ pip install -r requirements.txt
 
 4. Download the PathVQA dataset from the following link
 
-[text](https://github.com/UCSD-AI4H/PathVQA/blob/master/data/README.md)
+[PathVQA Dataset](https://github.com/UCSD-AI4H/PathVQA/blob/master/data/README.md)
 
 5. Clone the HistoCartography tool and setup the model checkpoints in `histocartography/checkpoints`
 
