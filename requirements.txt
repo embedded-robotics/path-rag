@@ -54,9 +54,9 @@ torchaudio==2.0.1+cu117
 torchdata==0.7.1
 torchvision==0.15.1+cu117
 tqdm==4.66.4
-transformers @ git+https://github.com/huggingface/transformers@cae78c46d658a8e496a815c2ee49b9b178fb9c9a
 triton==2.0.0
 typing_extensions==4.9.0
 tzdata==2024.1
 urllib3==1.26.13
 yarl==1.9.4
+transformers @ git+https://github.com/huggingface/transformers@cae78c46d658a8e496a815c2ee49b9b178fb9c9a
