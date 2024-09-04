@@ -10,7 +10,7 @@ from histocartography.preprocessing import NucleiExtractor, DeepFeatureExtractor
 
 PVQA_DATA_PATH = "pvqa"
 HISTO_PATCH_SAVE_PATH = "histo_image_patch"
-ACRH_DATA_PATH = "arch"
+ARCH_DATA_PATH = "arch"
 
 # Cell Graph Generation Definitions
 nuclei_detector = NucleiExtractor()
@@ -147,7 +147,7 @@ def save_histocartography_top_patches_arch(img_uuid : list, img_uuid_path: list,
         # Only consider if more than 5 nuclei are detected since knn needs to form a graph using 5 neighbors.
         # If less than 5 nuclei are present, most of the images are not pathology related
         if nuclei_centers.shape[0] > 5:
-            print(f"{image_idx}: Patches ")
+            print(f"{image_idx}: Creating Patches ")
             
             # Get the Features
             features = feats_extractor.process(image, nuclei_map)
@@ -205,7 +205,7 @@ def save_histocartography_top_patches_arch(img_uuid : list, img_uuid_path: list,
             sorted_indices_desc = np.flip(np.argsort(patch_center_length))
             
             # Create a directory to store all the patches of the image
-            save_directory = os.path.join(os.getcwd(), HISTO_PATCH_SAVE_PATH, ACRH_DATA_PATH, books_pubmed_class, img_uuid[image_idx])
+            save_directory = os.path.join(os.getcwd(), HISTO_PATCH_SAVE_PATH, ARCH_DATA_PATH, books_pubmed_class, img_uuid[image_idx])
             if not os.path.isdir(save_directory):
                 os.mkdir(save_directory)
             
@@ -213,11 +213,12 @@ def save_histocartography_top_patches_arch(img_uuid : list, img_uuid_path: list,
             for patch_index in range(0,6):
                 save_file_path = os.path.join(save_directory, str(patch_index+1) + ".png")
                 image_patches[sorted_indices_desc[patch_index]].save(save_file_path)
-        # except:
-        #     # Create an empty directory
-        #     save_directory = os.path.join(os.getcwd(), HISTO_PATCH_SAVE_PATH, ACRH_DATA_PATH, books_pubmed_class, img_uuid[image_idx])
-        #     if not os.path.isdir(save_directory):
-        #         os.mkdir(save_directory)
+        else:
+            # Create an empty directory for non-pathology images
+            print(f"{image_idx}: Non-Pathology Images")
+            save_directory = os.path.join(os.getcwd(), HISTO_PATCH_SAVE_PATH, ARCH_DATA_PATH, books_pubmed_class, img_uuid[image_idx])
+            if not os.path.isdir(save_directory):
+                os.mkdir(save_directory)
 
         print(f"{image_idx}/{len(img_uuid)}: Ended ")
         print(".........")
@@ -231,9 +232,9 @@ if __name__ == "__main__":
     # # Generate the top patches using histocartography and save them
     # save_histocartography_top_patches(img_general, img_general_path)
     
-    pubmed_img_uuid, pubmed_img_uuid_path, books_img_uuid, books_img_uuid_path = get_arch_open_images(ACRH_DATA_PATH)
+    pubmed_img_uuid, pubmed_img_uuid_path, books_img_uuid, books_img_uuid_path = get_arch_open_images(ARCH_DATA_PATH)
     
-    save_histocartography_top_patches_arch(pubmed_img_uuid, pubmed_img_uuid_path, "pubmed")
+    # save_histocartography_top_patches_arch(pubmed_img_uuid, pubmed_img_uuid_path, "pubmed")
     
     save_histocartography_top_patches_arch(books_img_uuid, books_img_uuid_path, "books")
     
