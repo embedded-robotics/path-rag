@@ -40,15 +40,15 @@ def get_arch_open_images(data_path : str = "arch"):
 
     # Extract the image data for PubMed dataset
     pubmed_path_images = os.path.join(data_path, "pubmed_set", "images")
-    pubmed_img_uuid = os.listdir(pubmed_path_images)
-    pubmed_img_uuid = [uuid.split('.')[0] for uuid in pubmed_img_uuid]
-    pubmed_img_uuid_path = [os.path.join(pubmed_path_images, img_uuid + '.jpg') for img_uuid in pubmed_img_uuid]
+    pubmed_img_uuid_list = os.listdir(pubmed_path_images)
+    pubmed_img_uuid = [uuid.split('.')[0] for uuid in pubmed_img_uuid_list]
+    pubmed_img_uuid_path = [os.path.join(pubmed_path_images, img_uuid) for img_uuid in pubmed_img_uuid_list]
 
     # Extract the image data for Books dataset
     books_path_images = os.path.join(data_path, "books_set", "images")
-    books_img_uuid = os.listdir(books_path_images)
-    books_img_uuid = [uuid.split('.')[0] for uuid in books_img_uuid]
-    books_img_uuid_path = [os.path.join(books_path_images, img_uuid + '.png') for img_uuid in books_img_uuid]    
+    books_img_uuid_list = os.listdir(books_path_images)
+    books_img_uuid = [uuid.split('.')[0] for uuid in books_img_uuid_list]
+    books_img_uuid_path = [os.path.join(books_path_images, img_uuid) for img_uuid in books_img_uuid_list]    
 
     return pubmed_img_uuid, pubmed_img_uuid_path, books_img_uuid, books_img_uuid_path
 
@@ -234,7 +234,7 @@ if __name__ == "__main__":
     
     pubmed_img_uuid, pubmed_img_uuid_path, books_img_uuid, books_img_uuid_path = get_arch_open_images(ARCH_DATA_PATH)
     
-    # save_histocartography_top_patches_arch(pubmed_img_uuid, pubmed_img_uuid_path, "pubmed")
+    save_histocartography_top_patches_arch(pubmed_img_uuid, pubmed_img_uuid_path, "pubmed")
     
     save_histocartography_top_patches_arch(books_img_uuid, books_img_uuid_path, "books")
     
