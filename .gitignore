@@ -1,3 +1,6 @@
-pvqa/
-histocartography/
-LLaVA-Med/
+pvqa/*
+LLaVA-Med/*
+histo_image_patch/*
+nohup.out
+arch/*
+histocartography/*
