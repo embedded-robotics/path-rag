@@ -166,9 +166,7 @@ python llava/eval/model_vqa.py --model-name ../final_models/llava_med_pvqa \
 
 ## ARCH-Open Dataset
 
-1. Download the `books_set` and `pubmed_set` of ARCH dataset from  `https://warwick.ac.uk/fac/cross_fac/tia/data/arch`. Store both of these folders in a folder named `arch`
-
-Both `books_set` and `pubmed_set` contains `captions.json` which lists a **caption** and a **UUID**, whereas **UUID** represents the file name in `images` folder and **caption** represents the description of the image.
+1. Download the `books_set` and `pubmed_set` of ARCH dataset from  `https://warwick.ac.uk/fac/cross_fac/tia/data/arch`. Store both of these folders in a folder named `arch`. Both `books_set` and `pubmed_set` contains `captions.json` which lists a **caption** and a **UUID**, whereas **UUID** represents the file name in `images` folder and **caption** represents the description of the image.
 
 2. Using `captions.json` and `images` folder under `arch/books_set`, run the notebooks `ARCH-OPEN/books_data/synthetic_data_textbook.ipynb` by specifying the OpenAI credentials to generate the question-answer pairs for books set
 
@@ -176,7 +174,7 @@ Both `books_set` and `pubmed_set` contains `captions.json` which lists a **capti
 
 4. Run the notebook `ARCH-OPEN/synthetic_data_compilation.ipynb` to compile the `pubmed` and `books` question-answer pairs into json files namely `ARCH-OPEN/pubmed_qa_pairs.json` and `ARCH-OPEN/textbook_qa_pairs.json`. These files are already provided to be used directly
 
-5. The `*.json` files contain 5 question-pairs for each pair of `caption` and `uuid` (refers to image name in arch data `arch/pubmed_set/images`, `arch/books_set/images`) in the following format (for both `pubmed_set` and `books_set`):
+5. The `pubmed_qa_pairs.json` and `textbook_qa_pairs.json` files contain 5 question-pairs for each pair of `caption` and `uuid` (refers to image name in arch data `arch/pubmed_set/images`, `arch/books_set/images`) in the following format (for both `pubmed_set` and `books_set`):
 
 ```Shell
   {
