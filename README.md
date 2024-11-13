@@ -6,6 +6,17 @@
   *Accurate diagnosis and prognosis assisted by pathology images are essential for cancer treatment selection and planning. Despite the recent trend of adopting deep-learning approaches for analyzing complex pathology images, they fall short as they often overlook the domain-expert understanding of tissue structure and cell composition. In this work, we focus on a challenging Open-ended Pathology VQA (PathVQA-Open) task and propose a novel framework named Path-RAG, which leverages HistoCartography to retrieve relevant domain knowledge from pathology images and significantly improves performance on PathVQA-Open. Admitting the complexity of pathology image analysis, Path-RAG adopts a human-centered AI approach by retrieving domain knowledge using HistoCartography to select the relevant patches from pathology images. Our experiments suggest that domain guidance can significantly boost the accuracy of LLaVA-Med from 38\% to 47\%, with a notable gain of 28\% for H\&E-stained pathology images in the PathVQA-Open dataset. For longer-form question and answer pairs, our model consistently achieves significant improvements of 32.5\% in ARCH-Open PubMed and 30.6\% in ARCH-Open Books on H\&E images.*
 </p>
 
+---
+
+Awais Naeem*, Tianhao Li*, Huang-Ru Liao*, Jiawei Xu*, Aby Mammen Mathew*, Zehao Zhu*, Zhen Tan**, Ajay Jaiswal*, Raffi Salibian*** , Ziniu Hu*** , Tianlong Chen****, Ying Ding*
+
+*University of Texas at Austin, USA \
+**Arizona State University, USA \
+***University of California, Los Angeles, USA \
+****Massachusetts Institute of Technology, USA
+
+---
+
 ## Path-RAG Implementation
 
 ### 1. Clone this repository and navigate to path-rag folder
@@ -188,3 +199,6 @@ python llava/eval/model_vqa.py --model-name ../final_models/llava_med_pvqa \
     "Answer_5": "Spindle cells might show prominent paranuclear vacuolisation, a feature that can differentiate them from leiomyosarcoma cells."
   }
 ```
+
+## Acknolwdgement
+We would like to acknowledge the following funding supports: NIH OT2OD032581, NIH OTA-21-008, NIH 1OT2OD032742-01, NSF 2333703, NSF 2303038.
