@@ -3,23 +3,10 @@
 <p align="center">
     <img src="images/path-rag.png" width="90%"> <br>
  
-  *Accurate diagnosis and prognosis assisted by pathology im-
-ages are essential for cancer treatment selection and planning. Despite
-the recent trend of adopting deep-learning approaches for analyzing com-
-plex pathology images, they fall short as they often overlook the domain-
-expert understanding of tissue structure and cell composition. In this
-work, we focus on a challenging Open-ended Pathology VQA (PathVQA-
-Open) task and propose a novel framework named Path-RAG, which
-leverages HistoCartography to retrieve relevant domain knowledge from
-pathology images and significantly improves performance on PathVQA-
-Open. Admitting the complexity of pathology image analysis, Path-RAG
-adopts a human-centered AI approach by retrieving domain knowledge
-using HistoCartography to select the relevant patches from pathology
-images. Our experiments suggest that domain-guidance can significantly
-boost the accuracy of LLaVa-Med from 38% to 47%, especially with a
-surprising gain of 28% for H&E-stained pathology images. All our rele-
-vant codes will be open-sourced.*
+  *Accurate diagnosis and prognosis assisted by pathology images are essential for cancer treatment selection and planning. Despite the recent trend of adopting deep-learning approaches for analyzing complex pathology images, they fall short as they often overlook the domain-expert understanding of tissue structure and cell composition. In this work, we focus on a challenging Open-ended Pathology VQA (PathVQA-Open) task and propose a novel framework named Path-RAG, which leverages HistoCartography to retrieve relevant domain knowledge from pathology images and significantly improves performance on PathVQA-Open. Admitting the complexity of pathology image analysis, Path-RAG adopts a human-centered AI approach by retrieving domain knowledge using HistoCartography to select the relevant patches from pathology images. Our experiments suggest that domain guidance can significantly boost the accuracy of LLaVA-Med from 38\% to 47\%, with a notable gain of 28\% for H\&E-stained pathology images in the PathVQA-Open dataset. For longer-form question and answer pairs, our model consistently achieves significant improvements of 32.5\% in ARCH-Open PubMed and 30.6\% in ARCH-Open Books on H\&E images.*
 </p>
+
+## Path-RAG Implementation
 
 ### 1. Clone this repository and navigate to path-rag folder
 
@@ -175,3 +162,37 @@ python llava/eval/model_vqa.py --model-name ../final_models/llava_med_pvqa \
 (i) Path-RAG w/o GPT: Combine the answer of image + all patches to be the final predicted answer\
 (ii) Path-RAG (description): Combine the description of image + all patches. Then involve GPT-4 for reasoning to ge the final predicted answer (See Supplementary Section for Prompts)\
 (iii) Path-RAG (answer): Combine the answer of image + all patches. Then involve GPT-4 for reasoning to ge the final predicted answer (See Supplementary Section for Prompts)
+
+
+## ARCH-Open Dataset
+
+### 1. Download the `books_set` and `pubmed_set` of ARCH dataset from  `https://warwick.ac.uk/fac/cross_fac/tia/data/arch`. Store both of these folders in a folder named `arch`
+
+Both `books_set` and `pubmed_set` contains `captions.json` which lists a **caption** and a **UUID**, whereas **UUID** represents the file name in `images` folder and **caption** represents the description of the image.
+
+### 2. Using `captions.json` and `images` folder under `arch/books_set`, run the notebooks `ARCH-OPEN/books_data/synthetic_data_textbook.ipynb` by specifying the OpenAI credentials to generate the question-answer pairs for books set
+
+### 3. Using `captions.json` and `images` folder under `arch/pubmed_set`, run the notebooks `ARCH-OPEN/pubmed_data/synthetic_data_pubmed.ipynb` by specifying the OpenAI credentials to generate the question-answer pairs for pubmed set
+
+### 4. Run the notebook `ARCH-OPEN/synthetic_data_compilation.ipynb` to compile the `pubmed` and `books` question-answer pairs into json files namely `ARCH-OPEN/pubmed_qa_pairs.json` and `ARCH-OPEN/textbook_qa_pairs.json`. These files are already provided to be used directly
+
+### 5. The `*.json` files contain 5 question-pairs for each pair of `caption` and `uuid` (refers to image name in arch data `arch/pubmed_set/images`, `arch/books_set/images`) in the following format (for both `pubmed_set` and `books_set`):
+
+```Shell
+  {
+    "figure_id": "00",
+    "letter": "A",
+    "caption": " A, Spindle cell variant of embryonal rhabdomyosarcoma is characterized by fascicles of eosinophilic spindle cells (B), some of which can show prominent paranuclear vacuolisation, as seen in leiomyosarcoma.",
+    "uuid": "890e2e79-ab0a-4a2e-9d62-b0b6b3d43884",
+    "Question_1": "What could be the general shape of cells in a spindle cell variant of embryonal rhabdomyosarcoma as seen in the image?",
+    "Answer_1": "The cells often present with a spindle-like elongated shape.",
+    "Question_2": "What type of structures could be visible in the image indicating the presence of spindle cells?",
+    "Answer_2": "Fascicles, or bundles, of cells could be visible in the image, indicating the presence of spindle cells.",
+    "Question_3": "Where in the cell would we likely find paranuclear vacuolisation in the image?",
+    "Answer_3": "Paranuclear vacuolisation is usually seen around the nucleus area of the cell.",
+    "Question_4": "What color might the spindle cells appear in the image?",
+    "Answer_4": "The spindle cells may appear eosinophilic, or pinkish-red, under the microscope due to staining.",
+    "Question_5": "What visual feature might differentiate spindle cells from leiomyosarcoma cells in the image?",
+    "Answer_5": "Spindle cells might show prominent paranuclear vacuolisation, a feature that can differentiate them from leiomyosarcoma cells."
+  }
+```
